@@ -1,4 +1,4 @@
-    import sys
+import sys
 import json
 import os
 with open("config.json") as data:
