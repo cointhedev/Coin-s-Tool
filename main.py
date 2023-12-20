@@ -43,7 +43,7 @@ $$$$$$$$\                     $$\
    $$ |   \$$$$$$  |\$$$$$$  |$$ |              
    \__|    \______/  \______/ \__|              
 {blue}
-      1. Nuker
+      1. Coin's Nuker
       2. Coin's Selfbot
 {cyan}      3. Quit{white}
       """)
