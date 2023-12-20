@@ -65,6 +65,9 @@ $$$$$$$$\                     $$\
         time.sleep(.5)
         menu()
     return opt
+with open("antiskid.txt","w") as file:
+    file.write("If this tool has been sold to you, I'm sorry to tell you this, but it is free on my github (cointhedev) <3")
+    file.close()
 def nuker():
     global config
     if config["pyorpython"] == 'py':
