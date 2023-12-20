@@ -1,9 +1,9 @@
 import sys
 import json
 import os
-with open("config.json") as data:
+with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\config.json") as data:
     config = json.load(data)
-with open("sbconfig.json") as data:
+with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\sbconfig.json") as data:
     sbconfig = json.load(data)
 if config['pyorpython'] == '' or config['path'] == '':
     print("Please edit the config file like so:")
@@ -100,6 +100,7 @@ if giphyapi!="":
     hasgiphy = True
 print("")
 intents = discord.Intents.all()
+intents.members=True
 client = commands.Bot(command_prefix='>', self_bot=True,intents=intents,help_command=None,activity = discord.Game(type=discord.ActivityType.watching,name="coin.dev"))
 if sbconfig["autoreply"]=="True":
     autoreply = True
@@ -107,6 +108,11 @@ if sbconfig["autoreply"]=="True":
 else:
     autoreply = False
     print("Autoreply is off!")
+
+@client.event
+async def on_ready():
+    print("Selfbot has woken up.")
+
 @client.event
 async def on_message(message):
     global autoreply
@@ -127,6 +133,53 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
         temperature=0,
     )
     return response.choices[0].message["content"]
+@client.command()
+async def insta_del(ctx,*,msg):
+    await ctx.message.delete()
+    await ctx.send(msg,delete_after=0.2)
+@client.command()
+async def nuke(ctx):
+    await ctx.message.delete()
+    try:
+        msg = await ctx.send("nuking....")
+        guild = ctx.guild
+        id = ctx.channel.id
+        for channel in guild.text_channels:
+            if channel != ctx.channel:
+                try:
+                    await channel.delete()
+                except:
+                    pass
+        for channel in guild.voice_channels:
+            try:
+                await channel.delete()
+            except:
+                pass
+        try:
+            for channel in guild.categories:
+                try:
+                    await channel.delete()
+                except:
+                    pass
+        except Exception as e:
+            await ctx.respond(e)
+        try:
+            for role in guild.roles:
+                try:
+                    await role.delete()
+                except:
+                    pass
+        except Exception as e:
+            await ctx.respond(e)
+            pass
+        await msg.delete()
+        await ctx.send("finished!",delete_after=2.5)
+    except AttributeError:
+        await msg.delete()
+        await ctx.send("must be in a server to use this command",delete_after=2.5)
+    except:
+        await msg.delete()
+        await ctx.send("no perms idiot",delete_after=2.5)
 @client.command()
 async def help(ctx):
     await ctx.message.delete()
@@ -500,4 +553,4 @@ async def fact(ctx):
         await ctx.send(f"Here is your fact: {r}")
     else:
         await ctx.send("Failed to fetch fact!",delete_after=2.5)
-client.run(token, bot=False)
+client.run(token, bot=False)    
