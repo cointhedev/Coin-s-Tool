@@ -61,7 +61,7 @@ $$$$$$$$\                     $$\
             pass
             menu()
     if( opt!= 1 and opt!=2 and opt!=3):
-        print("Please enter a valid number!")
+        print("Please enter a valid option!")
         time.sleep(.5)
         menu()
     return opt
