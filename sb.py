@@ -1,9 +1,9 @@
-import sys
+    import sys
 import json
 import os
-with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\config.json") as data:
+with open("config.json") as data:
     config = json.load(data)
-with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\sbconfig.json") as data:
+with open("sbconfig.json") as data:
     sbconfig = json.load(data)
 if config['pyorpython'] == '' or config['path'] == '':
     print("Please edit the config file like so:")
