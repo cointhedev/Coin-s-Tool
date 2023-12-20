@@ -16,6 +16,7 @@ if config['pyorpython'] == '' or config['path'] == '':
     sys.exit()
 if nukerconfig['token'] == '' or nukerconfig['userid'] == '':
     print("Please edit the nukerconfig.json file and add your bot's token and ur userid to it!")
+    sys.exit()
 else:
     token = nukerconfig['token']
     useridlol = nukerconfig['userid']
