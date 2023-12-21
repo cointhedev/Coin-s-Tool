@@ -1,9 +1,9 @@
 import sys
 import json
 import os
-with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\config.json") as data:
+with open("config.json") as data:
     config = json.load(data)
-with open(r"C:\Users\Coin\Desktop\Development\discord stuff\Coin's tool\sbconfig.json") as data:
+with open("sbconfig.json") as data:
     sbconfig = json.load(data)
 if config['pyorpython'] == '' or config['path'] == '':
     print("Please edit the config file like so:")
@@ -518,18 +518,17 @@ async def executecode(code):
 import re
 @client.command()
 async def run_code(ctx,*,code=None):
-    if ctx.author.id == 1054035775206981752:
-        try:
-            if code!=None:
-                code = code.replace("```py","")
-                code = code.replace("```","")
-                r = await executecode(code)
-                print(r)
-                await ctx.send(r)
-            else:
-                await ctx.send("No code given!", delete_after=2.5)
-        except Exception as e:
-            await ctx.send(e)
+    try:
+        if code!=None:
+            code = code.replace("```py","")
+            code = code.replace("```","")
+            r = await executecode(code)
+            print(r)
+            await ctx.send(r)
+        else:
+            await ctx.send("No code given!", delete_after=2.5)
+    except Exception as e:
+        await ctx.send(e)
 @client.command()
 async def gpt(ctx,*,prompt=None):
     global hasopenai
