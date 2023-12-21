@@ -1,6 +1,8 @@
 import sys
 import json
 import os
+import ctypes
+ctypes.windll.kernel32.SetConsoleTitleW("Selfbot | Coin's Tool")
 with open("config.json") as data:
     config = json.load(data)
 with open("sbconfig.json") as data:
