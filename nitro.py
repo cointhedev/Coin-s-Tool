@@ -3,6 +3,8 @@ import sys
 import os
 import time
 import json
+import ctypes
+ctypes.windll.kernel32.SetConsoleTitleW("Nitro Generator | Coin's Tool")
 with open("config.json") as data:
     config = json.load(data)
 if config['pyorpython'] == '' or config['path'] == '':
