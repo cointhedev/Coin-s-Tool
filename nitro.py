@@ -115,7 +115,7 @@ def gen():
             print("Succesfully generated promo link: {}".format(link))
             ratelimit=False
     elif response.status_code == 429:
-        print(f"rate limit | {random.randint(1,100000000000)}")
+        print(f"rate limit")
         ratelimit = True
     else:
         print("failed {} | content: {}".format(response.status_code,response.content))
