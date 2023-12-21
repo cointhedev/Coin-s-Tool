@@ -1,3 +1,4 @@
+#im lazy to add proxies (not just bc i dont have any)
 import sys
 import os
 import time
