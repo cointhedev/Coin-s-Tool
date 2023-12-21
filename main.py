@@ -45,7 +45,8 @@ $$$$$$$$\                     $$\
 {blue}
       1. Nuker
       2. Coin's Selfbot
-{cyan}      3. Quit{white}
+      3. Coin's Nitro Generator (promocodes)
+{cyan}      4. Quit{white}
       """)
     try:
         opt = int(input())
@@ -53,21 +54,21 @@ $$$$$$$$\                     $$\
         if type(e)==ValueError:
             print("Please enter a number!")
             time.sleep(.5)
+            opt=""
             pass
             menu()
         else:
             print(e)
+            opt=""
             time.sleep(.5)
             pass
             menu()
-    if( opt!= 1 and opt!=2 and opt!=3):
+    if( opt!= 1 and opt!=2 and opt!=3 and opt !=4):
         print("Please enter a valid number!")
         time.sleep(.5)
+        opt=""
         menu()
     return opt
-with open("antiskid.txt","w") as file:
-    file.write("If this tool has been sold to you, I'm sorry to tell you this, but it is free on my github (cointhedev) <3")
-    file.close()
 def nuker():
     global config
     if config["pyorpython"] == 'py':
@@ -86,11 +87,24 @@ def sb():
         os.system("python sb.py")
         sys.exit()
 
+def nitro():
+    global config
+    if config["pyorpython"]=="py":
+        os.system("py nitro.py")
+        sys.exit()
+    else:
+        os.system("python nitro.py")
+        sys.exit()
+
 option = menu()
+while option=="":
+    option = menu()
 
 if option == 1:
     nuker()
 if option == 2:
     sb()
 if option == 3:
+    nitro()
+if option == 4:
     sys.exit()
