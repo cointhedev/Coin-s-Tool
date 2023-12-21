@@ -2,6 +2,8 @@ import sys
 import os
 import time
 import json
+import ctypes
+ctypes.windll.kernel32.SetConsoleTitleW("Nuker | Coin's Tool")
 with open("config.json") as data:
     config = json.load(data)
 with open("nukerconfig.json") as data:
