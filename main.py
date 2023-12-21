@@ -2,7 +2,8 @@ import json
 import sys
 import os
 import time
-
+import ctypes
+ctypes.windll.kernel32.SetConsoleTitleW("Menu | Coin's Tool")
 black = "\033[1;30m"
 red = "\033[1;31m"    
 green = "\033[1;32m"
