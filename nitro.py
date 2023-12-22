@@ -114,10 +114,10 @@ def gen():
             link = f"https://discord.com/billing/partner-promotions/1180231712274387115/{token}"
             with open("promos.txt", "a") as f:
                 f.write(f"{link}\n")
-            print("Succesfully generated promo link: {}".format(link))
+            print("{}Succesfully generated promo link: {}{}".format(green,link,white))
             ratelimit=False
     elif response.status_code == 429:
-        print(f"rate limit")
+        print(f"{red}rate limit{white}")
         ratelimit = True
     else:
         print("failed {} | content: {}".format(response.status_code,response.content))
