@@ -3,7 +3,7 @@ import os
 import time
 import json
 import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("Nuker | Coin's Tool")
+ctypes.windll.kernel32.SetConsoleTitleW("Nuker - 0 messages sent | Coin's Tool")
 with open("config.json") as data:
     config = json.load(data)
 with open("nukerconfig.json") as data:
@@ -18,7 +18,6 @@ if config['pyorpython'] == '' or config['path'] == '':
     sys.exit()
 if nukerconfig['token'] == '' or nukerconfig['userid'] == '':
     print("Please edit the nukerconfig.json file and add your bot's token and ur userid to it!")
-    sys.exit()
 else:
     token = nukerconfig['token']
     useridlol = nukerconfig['userid']
@@ -66,6 +65,7 @@ blue = "\033[1;34m"
 purple = "\033[1;35m"    
 cyan = "\033[1;36m"    
 white = "\033[1;37m"
+os.system("title Nuker | Coin's Tool")
 os.system("cls")
 print(f"""{red}
     
@@ -86,23 +86,45 @@ $$ |\$$$ |$$ |  $$ |$$  _$$<  $$   ____|$$ |
 $$ | \$$ |\$$$$$$  |$$ | \$$\ \$$$$$$$\ $$ |      
 \__|  \__| \______/ \__|  \__| \_______|\__|      {white}
 {blue}/lol to nuke{white}""")
+x = 0
+def increment():
+    global x
+    x+=1
+    return x
 
+def thread_task(lock):
+    global green
+    global white
+    lock.acquire()
+    p=increment()
+    lock.release()
+    print(f"{green}Sent message #{p}!{white}")
+
+def idk():
+    global x
+    lock = threading.Lock()
+    tp = threading.Thread(target=thread_task,args=(lock,))
+    tp.start()
+    tp.join()
 import threading
 import httpx
 import discord
 intents = discord.Intents().all()
 bot = discord.Bot(intents=intents)
 def spam_webhook(webhook):
+    global white
+    global red
     while True:
         try:
             url = webhook.url
             data={"content":"@everyone"}
             r=httpx.post(url,json=data)
-            print(r.status_code)
-            while r.status_code == 429:
-                print("RATE LIMITED, SLEEPING")
+            if r.status_code == 204:
+                idk()
+                ctypes.windll.kernel32.SetConsoleTitleW(f"Nuker - {x} Messages sent. | Coin's Tool")
+            else:
+                print(f"{red}Rate Limit! {white}")
                 time.sleep(1)
-                r=httpx.post(url,json=data)
         except Exception as e:
             print(e)
             pass
