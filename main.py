@@ -64,13 +64,10 @@ $$$$$$$$\                     $$\
             time.sleep(.5)
             pass
             menu()
-<<<<<<< HEAD
     if( opt!= 1 and opt!=2 and opt!=3 and opt !=4):
         print("Please enter a valid number!")
-=======
     if( opt!= 1 and opt!=2 and opt!=3):
         print("Please enter a valid option!")
->>>>>>> e17068e4959d96c5c29fdc03ef8f6c17244700ba
         time.sleep(.5)
         opt=""
         menu()
