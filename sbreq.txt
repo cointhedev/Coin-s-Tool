@@ -1,5 +1,0 @@
-discord.py==1.7.3
-openai
-httpx
-asyncio
-jokeapi
