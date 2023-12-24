@@ -9,7 +9,7 @@ import discord
 # no need to check if the user has windows or linux.
 
 # ctypes.windll.kernel32.SetConsoleTitleW("Nitro Nuker | Coin's Tool") (stop skidding off stack, learn os)
-os.system("title Nuker | Coin's Tool")
+os.system("title [Coin's Tools] Discord Nuker")
 
 with open("configs\\nukerconfig.json") as data:
     nukerconfig = json.load(data)
@@ -83,7 +83,7 @@ def spam_webhook(webhook):
             if r.status_code == 204:
                 idk()
                 # ctypes.windll.kernel32.SetConsoleTitleW(f"Nuker - {x} Messages sent. | Coin's Tool")
-                os.system(f"title Nuker - {x} Messages sent. | Coin's Tool")
+                os.system(f"title Coin's Nuker - {x} Messages sent.")
             else:
                 print(f"{red}Rate Limit! {white}")
                 time.sleep(1)
