@@ -1,9 +1,9 @@
-import json
 import sys
 import os
 import time
-import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("Menu | Coin's Tool")
+
+os.system("title [Coin's Tools] Main Menu")
+
 black = "\033[1;30m"
 red = "\033[1;31m"    
 green = "\033[1;32m"
@@ -11,18 +11,7 @@ yellow = "\033[1;33m"
 blue = "\033[1;34m"    
 purple = "\033[1;35m"    
 cyan = "\033[1;36m"    
-white = "\033[1;37m"    
-with open("config.json") as data:
-    config = json.load(data)
-
-if config['pyorpython'] == '' or config['path'] == '':
-    print("Please edit the config file like so:")
-    print('''
-{
-    "pyorpython":"", -- here put py or python, based on how u run a file py [filename].py or python [filename].py
-    "path":"" --here put if u have python to path (y/n)
-}''')
-    sys.exit()
+white = "\033[1;37m"
 
 def menu():
     os.system("cls")
@@ -72,32 +61,15 @@ $$$$$$$$\                     $$\
         opt=""
         menu()
     return opt
+
 def nuker():
-    global config
-    if config["pyorpython"] == 'py':
-        os.system("py nuker.py")
-        sys.exit()
-    else:
-        os.system("python nuker.py")
-        sys.exit()
+    os.system("python3 nuker.py || py nuker.py || python nuker.py")
 
 def sb():
-    global config
-    if config["pyorpython"] == 'py':
-        os.system("py sb.py")
-        sys.exit()
-    else:
-        os.system("python sb.py")
-        sys.exit()
+    os.system("python3 sb.py || py sb.py || python sb.py")
 
 def nitro():
-    global config
-    if config["pyorpython"]=="py":
-        os.system("py nitro.py")
-        sys.exit()
-    else:
-        os.system("python nitro.py")
-        sys.exit()
+    os.system("python3 nuker.py || py nuker.py || python nuker.py")
 
 option = menu()
 while option=="":

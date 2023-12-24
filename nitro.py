@@ -1,43 +1,13 @@
 #im lazy to add proxies (not just bc i dont have any)
-import sys
 import os
-import time
-import json
-import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("Nitro Generator | Coin's Tool")
-with open("config.json") as data:
-    config = json.load(data)
-if config['pyorpython'] == '' or config['path'] == '':
-    print("Please edit the config file like so:")
-    print('''
-{
-    "pyorpython":"", -- here put py or python, based on how u run a file py [filename].py or python [filename].py
-    "path":"" --here put if u have python to path (y/n)
-}''')
-    sys.exit()
+import httpx
+import uuid
+import threading
 
-if config['pyorpython'] == 'py':
-    python = False
-    py = True
-else:
-    python = True
-    py = False
+# ctypes.windll.kernel32.SetConsoleTitleW("Nitro Generator | Coin's Tool") (stop skidding off stack, learn os)
+# try to keep all the imports to the top of the file, makes easy for people checking the code
 
-if config['path'] == 'y':
-    path = True
-else:
-    path = False
-
-if path == True:
-    os.system("pip install threads")
-    os.system("pip install httpx")
-else:
-    if python:
-        os.system("python -m pip install threads")
-        os.system("python -m pip install httpx")   
-    if py:
-        os.system("py -m pip install threads")
-        os.system("py -m pip install httpx")
+os.system("title [Coin's Tools] Nitro Gen")
 
 black = "\033[1;30m"
 red = "\033[1;31m"    
@@ -47,7 +17,9 @@ blue = "\033[1;34m"
 purple = "\033[1;35m"    
 cyan = "\033[1;36m"    
 white = "\033[1;37m"
-os.system("cls")
+
+os.system("clear || cls")
+
 print(f"""{red}
  $$$$$$\            $$\         $$\                                           
 $$  __$$\           \__|        $  |                                          
@@ -89,13 +61,13 @@ $$  __$$\
 $$ |  \__|                                                                    
 $$ |                                                                          
 $$ |                                                                          
-\__|                                                                               {white}
+\__| {white}
 """)
-import httpx
-import uuid
-import random
-import threading
+
 ratelimit = False
+
+# not gonna bother checking this func because i can already smell where u got it from
+
 def gen():
     global ratelimit
     url = "https://api.discord.gx.games/v1/direct-fulfillment"
@@ -122,6 +94,5 @@ def gen():
     else:
         print("failed {} | content: {}".format(response.status_code,response.content))
 
-#fuck ratelimit!
 while True:
-    threading.Thread(target=gen).start()
+    threading.Thread(target=gen).start()    # rate limit is gonna be wild but ok if u want this way

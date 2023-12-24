@@ -1,20 +1,25 @@
 import sys
 import json
 import os
-import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("Selfbot | Coin's Tool")
-with open("config.json") as data:
-    config = json.load(data)
+import discord
+import openai
+import httpx
+from discord.ext import commands
+import requests
+import json
+import sys
+import asyncio
+import random
+import string
+from jokeapi import Jokes   # never heard of this lol
+
+# ctypes.windll.kernel32.SetConsoleTitleW("Selfbot | Coin's Tool")
+# use os instead of ctypes, i doubt u know c, even more kernel32. Stick to not using ctypes for a simple window title
+
+os.system("title [Coin's Tools] Discord Selfbot")
+
 with open("sbconfig.json") as data:
     sbconfig = json.load(data)
-if config['pyorpython'] == '' or config['path'] == '':
-    print("Please edit the config file like so:")
-    print('''
-{
-    "pyorpython":"", -- here put py or python, based on how u run a file py [filename].py or python [filename].py
-    "path":"" --here put if u have python to path (y/n)
-}''')
-    sys.exit()
 openaikey=""
 giphyapi = ""
 if sbconfig["token"] == "":
@@ -26,34 +31,6 @@ else:
         openaikey = sbconfig['openaikey']
     if sbconfig['giphyapi'] != '':
         giphyapi = sbconfig['giphyapi']
-if config['pyorpython'] == 'py':
-    python = False
-    py = True
-else:
-    python = True
-    py = False
-
-if config['path'] == 'y':
-    path = True
-else:
-    path = False
-
-if path == True:
-    os.system("pip uninstall py-cord -y")
-    os.system("pip uninstall py-cord -y")
-    os.system("pip uninstall discord.py -y")
-    os.system("pip install -r sbreq.txt")
-else:
-    if python:
-        os.system("python -m pip uninstall py-cord -y")
-        os.system("python -m pip uninstall py-cord -y")
-        os.system("python -m pip uninstall discord.py -y")
-        os.system("python -m pip install -r sbreq.txt") 
-    if py:
-        os.system("py -m pip uninstall py-cord -y")
-        os.system("py -m pip uninstall py-cord -y")
-        os.system("py -m pip uninstall discord.py -y")
-        os.system("py -m pip install -r sbreq.txt")
 
 black = "\033[1;30m"
 red = "\033[1;31m"    
@@ -63,7 +40,9 @@ blue = "\033[1;34m"
 purple = "\033[1;35m"    
 cyan = "\033[1;36m"    
 white = "\033[1;37m"
-os.system("cls")
+
+os.system("cls || clear")
+
 print(f"""{red}
  $$$$$$\            $$\           $$\                           
 $$  __$$\           \__|          $  |                          
@@ -82,17 +61,7 @@ $$\   $$ |$$   ____|$$ |$$ |      $$ |  $$ |$$ |  $$ |  $$ |$$\
 \$$$$$$  |\$$$$$$$\ $$ |$$ |      $$$$$$$  |\$$$$$$  |  \$$$$  |
  \______/  \_______|\__|\__|      \_______/  \______/    \____/ {white}
 {blue}Prefix: >{white}""")
-import discord
-import openai
-import httpx
-from discord.ext import commands
-import requests
-import json
-import sys
-import asyncio
-import random
-import string
-from jokeapi import Jokes
+
 hasopenai = False
 hasgiphy = False
 if openaikey!="":
@@ -104,6 +73,7 @@ print("")
 intents = discord.Intents.all()
 intents.members=True
 client = commands.Bot(command_prefix='>', self_bot=True,intents=intents,help_command=None,activity = discord.Game(type=discord.ActivityType.watching,name="coin.dev"))
+
 if sbconfig["autoreply"]=="True":
     autoreply = True
     print("Autoreply is on!")
@@ -135,6 +105,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
         temperature=0,
     )
     return response.choices[0].message["content"]
+
 @client.command()
 async def insta_del(ctx,*,msg):
     await ctx.message.delete()
@@ -464,7 +435,7 @@ async def eightball(ctx,*,message:str=None):
         "It is certain.",
         "It is decidedly so.",
         "Without a doubt.",
-        "Yes – definitely.",
+        "Yes - definitely.",
         "You may rely on it.",
         "As I see it, yes.",
         "Most likely.",
@@ -547,11 +518,11 @@ async def gpt(ctx,*,prompt=None):
 async def fact(ctx):
     await ctx.message.delete()
     r = requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
-    #print(r,r.content)
     if r.status_code==200:
         r = r.json()
         r = r['text']
         await ctx.send(f"Here is your fact: {r}")
     else:
-        await ctx.send("Failed to fetch fact!",delete_after=2.5)
+        await ctx.send(f"Failed to fetch fact! status: {r.status_code}",delete_after=2.5)
+
 client.run(token, bot=False)    
