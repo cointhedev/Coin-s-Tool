@@ -14,7 +14,9 @@ import string
 from jokeapi import Jokes   # never heard of this lol
 
 # ctypes.windll.kernel32.SetConsoleTitleW("Selfbot | Coin's Tool")
-# use os instead of ctypes, i doubt u know c, even more kernel32
+# use os instead of ctypes, i doubt u know c, even more kernel32. Stick to not using ctypes for a simple window title
+
+os.system("title [Coin's Tools] Discord Selfbot")
 
 with open("sbconfig.json") as data:
     sbconfig = json.load(data)
