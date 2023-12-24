@@ -1,9 +1,7 @@
 import sys
 import os
 import time
-
-os.system("title [Coin's Tools] Main Menu")
-
+os.system("title (CoinsTool) Menu")
 black = "\033[1;30m"
 red = "\033[1;31m"    
 green = "\033[1;32m"
@@ -63,13 +61,13 @@ $$$$$$$$\                     $$\
     return opt
 
 def nuker():
-    os.system("python3 nuker.py || py nuker.py || python nuker.py")
+    os.system("py nuker.py || python3 nuker.py || python nuker.py")
 
 def sb():
-    os.system("python3 sb.py || py sb.py || python sb.py")
+    os.system("py sb.py || python3 sb.py || python sb.py")
 
 def nitro():
-    os.system("python3 nuker.py || py nuker.py || python nuker.py")
+    os.system("py nitro.py || python3 nitro.py || python nireo.py")
 
 option = menu()
 while option=="":
