@@ -7,7 +7,7 @@ import threading
 # ctypes.windll.kernel32.SetConsoleTitleW("Nitro Generator | Coin's Tool") (stop skidding off stack, learn os)
 # try to keep all the imports to the top of the file, makes easy for people checking the code
 
-os.system("title Nitro Generator | Coin's Tool")
+os.system("title [Coin's Tools] Nitro Gen")
 
 black = "\033[1;30m"
 red = "\033[1;31m"    
