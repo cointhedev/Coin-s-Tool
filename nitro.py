@@ -4,10 +4,7 @@ import httpx
 import uuid
 import threading
 
-# ctypes.windll.kernel32.SetConsoleTitleW("Nitro Generator | Coin's Tool") (stop skidding off stack, learn os)
-# try to keep all the imports to the top of the file, makes easy for people checking the code
-
-os.system("title [Coin's Tools] Nitro Gen")
+os.system("title Nitro Generator | Coin's Tool")
 
 black = "\033[1;30m"
 red = "\033[1;31m"    
@@ -62,11 +59,10 @@ $$ |  \__|
 $$ |                                                                          
 $$ |                                                                          
 \__| {white}
+{blue}Credits to JOY6IX9INE {white}
 """)
 
 ratelimit = False
-
-# not gonna bother checking this func because i can already smell where u got it from
 
 def gen():
     global ratelimit
@@ -95,4 +91,4 @@ def gen():
         print("failed {} | content: {}".format(response.status_code,response.content))
 
 while True:
-    threading.Thread(target=gen).start()    # rate limit is gonna be wild but ok if u want this way
+    threading.Thread(target=gen).start()
