@@ -1,5 +1,6 @@
 category=""
 channels = 0
+h=0
 import os
 import time
 import asyncio
@@ -76,6 +77,7 @@ def spam_webhook(webhook):
     global white
     global red
     global channels
+    global h
     while True:
         try:
             url = webhook.url
@@ -83,7 +85,7 @@ def spam_webhook(webhook):
             r=httpx.post(url,json=data)
             if r.status_code == 204:
                 idk()
-                os.system(f"title (CoinsTool) Nuker - {x} messages sent - {channels} Channels Created")
+                os.system(f"title (CoinsTool) Nuker - {x} messages sent - {h+channels} Channels Created")
             else:
                 sleeptime = r.json()["retry_after"]
                 print(f"{purple}Webhook {white}- {red}Rate Limit! {cyan}Sleeping for: {sleeptime}s{white}")
@@ -172,8 +174,10 @@ async def create_channel2(guild,name,cat):
 async def nuke(guild):
     global category
     global channels
+    global h
     if(channels>49):
         channels = 0
+        h+=50
         category = await guild.create_category("nuked")
     await create_channel(guild=guild,name="nuked",cat=category)
 async def start_nuke(guild):
