@@ -83,8 +83,9 @@ def spam_webhook(webhook):
                 idk()
                 os.system(f"title (CoinsTool) Nuker - {x} messages sent")
             else:
-                print(f"{purple}Webhook {white}- {red}Rate Limit! {white}")
-                time.sleep(1)
+                sleeptime = r.json()["retry_after"]
+                print(f"{purple}Webhook {white}- {red}Rate Limit! {cyan}Sleeping for: {sleeptime}s{white}")
+                time.sleep(sleeptime)
         except Exception as e:
             print(e)
             pass
