@@ -180,10 +180,10 @@ async def help(ctx):
 >gpt [prompt] - returns chatgpt's answer
 >autoreply [on/off] - turns on/off autoreply can be configured in config.json
 >fact - fetches a random fact idfk lol
->playing - set playing status
->watching - set watching status
->streaming - set streaming status
->listening - set listening status
+>playing [status] - set playing status
+>watching [status] - set watching status
+>streaming [status] - set streaming status
+>listening [status] - set listening status
 ```
 """
     await ctx.send(msg)
