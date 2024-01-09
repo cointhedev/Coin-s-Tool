@@ -68,8 +68,8 @@ if giphyapi!="":
 print("")
 intents = discord.Intents.all()
 intents.members=True
-client = commands.Bot(command_prefix='>', self_bot=True,intents=intents,help_command=None,activity = discord.Game(type=discord.ActivityType.watching,name="coin.dev"))
-
+#client = commands.Bot(command_prefix='>', self_bot=True,intents=intents,help_command=None,activity = discord.Game(type=discord.ActivityType.watching,name="coin.dev"))
+client = commands.Bot(command_prefix='>', self_bot=True,intents=intents,help_command=None)
 if sbconfig["autoreply"]=="True":
     autoreply = True
     print("Autoreply is on!")
@@ -180,6 +180,10 @@ async def help(ctx):
 >gpt [prompt] - returns chatgpt's answer
 >autoreply [on/off] - turns on/off autoreply can be configured in config.json
 >fact - fetches a random fact idfk lol
+>playing - set playing status
+>watching - set watching status
+>streaming - set streaming status
+>listening - set listening status
 ```
 """
     await ctx.send(msg)
@@ -521,4 +525,36 @@ async def fact(ctx):
     else:
         await ctx.send(f"Failed to fetch fact! status: {r.status_code}",delete_after=2.5)
 
+@client.command()
+async def listening(ctx,*,msg="coin.dev"):
+    try:
+        await ctx.message.delete()
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name=msg))
+        await ctx.send("Successfully changed listening status to {}!".format(msg),delete_after=2.5)
+    except Exception as e:
+        await ctx.send("Failed to set listening status: {}".format(e),delete_after=2.5)
+@client.command()
+async def watching(ctx,*,msg="coin.dev"):
+    try:
+        await ctx.message.delete()
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=msg))
+        await ctx.send("Successfully changed watching status to {}!".format(msg),delete_after=2.5)
+    except Exception as e:
+        await ctx.send("Failed to set watching status: {}".format(e),delete_after=2.5)   
+@client.command()
+async def playing(ctx,*,msg="coin.dev"):
+    try:
+        await ctx.message.delete()
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name=msg))
+        await ctx.send("Successfully changed playing status to {}!".format(msg),delete_after=2.5)
+    except Exception as e:
+        await ctx.send("Failed to set playing status: {}".format(e),delete_after=2.5)
+@client.command()
+async def streaming(ctx,*,msg="coin.dev"):
+    try:
+        await ctx.message.delete()
+        await client.change_presence(activity=discord.Streaming(name=msg,url="https://twitch.tv/twitch"))
+        await ctx.send("Successfully changed streaming status to {}!".format(msg),delete_after=2.5)
+    except Exception as e:
+        await ctx.send("Failed to set streaming status: {}".format(e),delete_after=2.5)
 client.run(token, bot=False)    
